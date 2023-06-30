@@ -18,7 +18,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   try {
     await refreshDemoAccount()
   } catch (error) {

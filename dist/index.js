@@ -17,30 +17,33 @@ const cors_1 = __importDefault(require("cors"));
 const node_cron_1 = __importDefault(require("node-cron"));
 require("express-async-errors");
 const config_1 = require("./util/config");
-const { connectToDatabase } = require("./util/db");
-const { userExtractor } = require("./util/middleware");
-const exercisesRouter = require("./controllers/exercises");
-const templatesRouter = require("./controllers/templates");
-const workoutsRouter = require("./controllers/workouts");
-const usersRouter = require("./controllers/users");
-const loginRouter = require("./controllers/login");
+const db_1 = require("./util/db");
+const middleware_1 = require("./util/middleware");
+const exercises_1 = __importDefault(require("./controllers/exercises"));
+const workouts_1 = __importDefault(require("./controllers/workouts"));
+const users_1 = __importDefault(require("./controllers/users"));
+const login_1 = __importDefault(require("./controllers/login"));
+const initializeDb_1 = require("./util/initializeDb");
 const app = (0, express_1.default)();
-let minutesSinceRefresh = 0;
-node_cron_1.default.schedule("* * * * *", () => {
-    console.log("minutesSinceRefresh", minutesSinceRefresh++);
-});
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+node_cron_1.default.schedule("0 0 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield (0, initializeDb_1.refreshDemoAccount)();
+    }
+    catch (error) {
+        console.error('Error refreshing demo account:', error);
+    }
+}));
 app.get("/ping", (_req, res) => {
     res.send("pong");
 });
-app.use("/api/exercises", userExtractor, exercisesRouter);
-app.use("/api/templates", userExtractor, templatesRouter);
-app.use("/api/workouts", userExtractor, workoutsRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/login", loginRouter);
+app.use("/api/exercises", middleware_1.userExtractor, exercises_1.default);
+app.use("/api/workouts", middleware_1.userExtractor, workouts_1.default);
+app.use("/api/users", users_1.default);
+app.use("/api/login", login_1.default);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield connectToDatabase();
+    yield (0, db_1.connectToDatabase)();
     app.listen(config_1.PORT, () => {
         console.log(`App listening on port ${config_1.PORT}`);
     });
