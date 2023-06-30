@@ -9,6 +9,7 @@ import { userExtractor } from "./util/middleware"
 
 import exercisesRouter from "./controllers/exercises"
 import workoutsRouter from "./controllers/workouts"
+import statisticsRouter from "./controllers/statistics"
 import usersRouter from "./controllers/users"
 import loginRouter from "./controllers/login"
 
@@ -32,6 +33,7 @@ app.get("/ping", (_req, res) => {
 
 app.use("/api/exercises", userExtractor, exercisesRouter)
 app.use("/api/workouts", userExtractor, workoutsRouter)
+app.use("/api/statistics", statisticsRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/login", loginRouter)
 

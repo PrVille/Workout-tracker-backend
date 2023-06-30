@@ -21,6 +21,7 @@ const db_1 = require("./util/db");
 const middleware_1 = require("./util/middleware");
 const exercises_1 = __importDefault(require("./controllers/exercises"));
 const workouts_1 = __importDefault(require("./controllers/workouts"));
+const statistics_1 = __importDefault(require("./controllers/statistics"));
 const users_1 = __importDefault(require("./controllers/users"));
 const login_1 = __importDefault(require("./controllers/login"));
 const initializeDb_1 = require("./util/initializeDb");
@@ -40,6 +41,7 @@ app.get("/ping", (_req, res) => {
 });
 app.use("/api/exercises", middleware_1.userExtractor, exercises_1.default);
 app.use("/api/workouts", middleware_1.userExtractor, workouts_1.default);
+app.use("/api/statistics", statistics_1.default);
 app.use("/api/users", users_1.default);
 app.use("/api/login", login_1.default);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
