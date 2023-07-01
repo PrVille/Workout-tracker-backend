@@ -38,11 +38,11 @@ router.put("/:id", async (req, res) => {
     })
   }
 
-  if (exerciseToUpdate.user.toString() === SEED_USER_ID) {
-    return res.status(401).json({
-      error: "Trying to edit system exercise",
-    })
-  }
+  // if (exerciseToUpdate.user.toString() === SEED_USER_ID) {
+  //   return res.status(401).json({
+  //     error: "Trying to edit system exercise",
+  //   })
+  // }
 
   if (user.id !== exerciseToUpdate.user.toString()) {
     return res.status(401).json({
