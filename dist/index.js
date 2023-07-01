@@ -28,9 +28,10 @@ const initializeDb_1 = require("./util/initializeDb");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-node_cron_1.default.schedule("0 0 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+node_cron_1.default.schedule("* * * * *", () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, initializeDb_1.refreshDemoAccount)();
+        console.log("refreshDemoAccount");
     }
     catch (error) {
         console.error('Error refreshing demo account:', error);
