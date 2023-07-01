@@ -12,5 +12,11 @@
       "src": "/(.*)",
       "dest": "dist/index.js"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "* * * * *"
+    }
   ]
 }
