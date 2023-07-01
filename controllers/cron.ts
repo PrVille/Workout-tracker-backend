@@ -7,7 +7,7 @@ router.get("/", async (_req, res) => {
   try {
     await refreshDemoAccount()
     console.log("refreshDemoAccount")
-    res.status(200)
+    res.status(200).send("success")
   } catch (error) {
     console.log(error)
     res.status(400)

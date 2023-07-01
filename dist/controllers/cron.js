@@ -19,7 +19,7 @@ router.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, initializeDb_1.refreshDemoAccount)();
         console.log("refreshDemoAccount");
-        res.status(200);
+        res.status(200).send("success");
     }
     catch (error) {
         console.log(error);
