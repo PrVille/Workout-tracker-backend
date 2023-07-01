@@ -11,6 +11,10 @@ router.get("/", async (req, res) => {
   const systemExercises = await Exercise.find({ user: SEED_USER_ID })
   const exercises = await Exercise.find({ user: user.id })
 
+  if (user.id === SEED_USER_ID) {
+    return res.json(systemExercises)
+  }
+
   res.json([...exercises, ...systemExercises])
 })
 
@@ -75,7 +79,7 @@ router.delete("/:id", async (req, res) => {
 
   if (user.id !== exerciseToDelete.user.toString()) {
     return res.status(401).json({
-      error: "Cannot delete an exercise that is not yours!", 
+      error: "Cannot delete an exercise that is not yours!",
     })
   }
 

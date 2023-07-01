@@ -20,6 +20,9 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.user;
     const systemExercises = yield exercise_1.default.find({ user: config_1.SEED_USER_ID });
     const exercises = yield exercise_1.default.find({ user: user.id });
+    if (user.id === config_1.SEED_USER_ID) {
+        return res.json(systemExercises);
+    }
     res.json([...exercises, ...systemExercises]);
 }));
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
